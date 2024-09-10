@@ -75,7 +75,7 @@ class SSHConnectionManager:
                 password = details['password']
                 logger.info(f"{Fore.CYAN}{name}:{Style.RESET_ALL}\n"
                             f"\t{Fore.GREEN}Host: {login}@{address}\n"
-                            f"\t{Fore.RED}Password: {password if not hide else '[hidden]'}{Style.RESET_ALL}\n")
+                            f"\t{Fore.RED}Password: { '[hidden]' if not hide else password}{Style.RESET_ALL}\n")
         else:
             logger.info(f"{Fore.YELLOW}No connections found.{Style.RESET_ALL}")
 

@@ -1,0 +1,2 @@
+script_dir=$(dirname "$(realpath "$BASH_SOURCE")")
+$script_dir/.venv/bin/python $script_dir/main.py $@

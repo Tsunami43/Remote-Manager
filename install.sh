@@ -1,5 +1,5 @@
 #!/bin/bash
-
+mkdir -p mnt
 # Name of the virtual environment
 VENV_DIR=".venv"
 

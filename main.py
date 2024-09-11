@@ -158,12 +158,22 @@ class MountManager:
         ssh_key = os.path.expanduser("~/.ssh/id_rsa") #,IdentityFile={ssh_key}
         logger.info(f"{Fore.CYAN}Mounting {name} at {mount_point}{Style.RESET_ALL}")
         try:
-            result = subprocess.run(['sudo', 'sshfs', '-o', f'allow_other', f'{login}@{address}:', mount_point], check=True)
+            result = subprocess.run(['sudo', 'sshfs', '-o', f'allow_other', f'{login}@{address}:/', mount_point], check=True)
             logger.info(f"{Fore.GREEN}Mounting completed.{Style.RESET_ALL}")
+            self.change_directory(mount_point)
         except subprocess.CalledProcessError as e:
             logger.error(f"{Fore.RED}Failed to mount {name} at {mount_point}: {e}{Style.RESET_ALL}")
             sys.exit(1)
 
+    def change_directory(self, directory):
+        try:
+            # Переходим в директорию с помощью bash команды
+            subprocess.run(f'cd {directory}', shell=True, check=True)
+            logger.info(f"Changed directory to {directory}")
+        except subprocess.CalledProcessError as e:
+            logger.error(f"Failed to change directory to {directory}: {e}")
+        except Exception as e:
+            logger.error(f"Error changing directory: {e}")
 
     def unmount_connection(self, name):
         mount_point = f"{NEW_MOUNTED_DIR}{name}"
